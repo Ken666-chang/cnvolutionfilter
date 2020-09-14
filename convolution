@@ -1,0 +1,47 @@
+#include<iostream>
+#include<math.h>
+#include<opencv2\opencv.hpp>
+using namespace std;
+using namespace cv;
+#define PI 3.1415926;
+
+int main()
+{
+	//double box = 0;
+	Mat pic = imread("ken.jpg", CV_8UC1);
+	//Mat pic(200, 200, CV_8UC3);
+	namedWindow("picture", WINDOW_NORMAL);
+	imshow("picture", pic);
+	for (int i = 1; i < pic.rows-1; i++)
+	{
+		for (int j = 1; j < pic.cols-1; j++)
+		{
+			//convolution_filter
+			//pic.at<uchar>(i, j) =( pic.at<uchar>(i - 1, j - 1)*1 + pic.at<uchar>(i - 1, j)*2+ pic.at<uchar>(i - 1, j + 1)*1 +
+			//						 pic.at<uchar>(i, j - 1) *2 + pic.at<uchar>(i, j)*4 + pic.at<uchar>(i, j + 1)*2+
+			//						 pic.at<uchar>(i + 1, j - 1)*1 + pic.at<uchar>(i + 1, j)*2 + pic.at<uchar>(i + 1, j + 1)*1)/16;
+			//====================================================================
+			//mean_filter
+			pic.at<uchar>(i, j) = (pic.at<uchar>(i - 1, j - 1)+ pic.at<uchar>(i - 1, j)+ pic.at<uchar>(i - 1, j + 1) +
+				pic.at<uchar>(i, j - 1) + pic.at<uchar>(i, j)  + pic.at<uchar>(i, j + 1)  +
+				pic.at<uchar>(i + 1, j - 1) + pic.at<uchar>(i + 1, j) + pic.at<uchar>(i + 1, j + 1) ) / 9;
+				
+		}
+	}
+	namedWindow("dst", WINDOW_NORMAL);
+	imshow("dst", pic);
+	
+	waitKey(0);
+	//IplImage*src = cvLoadImage("ken.jpg");
+	
+	//namedWindow("windowken",0);
+	//cvShowImage("windowken",src);
+	//waitKey(0);
+	//cvReleaseImage(&src);
+	//destroyWindow("windowken");
+	
+
+	//system("pause");
+	
+	return 0;
+}
